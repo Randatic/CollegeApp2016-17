@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/forgot_password"
+        android:id="@+id/forgot_account_textView"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password_instructions"
+        android:id="@+id/forgot_account_textView_instructions"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/first_name"
+        android:ems="10"
+        android:id="@+id/forgot_account_editText_first_name"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/last_name"
+        android:ems="10"
+        android:id="@+id/forgot_account_editText_last_name"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:ems="10"
+        android:id="@+id/forgot_account_editText_email"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:id="@+id/forgot_account_button_submit"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

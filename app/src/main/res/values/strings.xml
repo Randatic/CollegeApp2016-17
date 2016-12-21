@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">College App</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="log_In">Log In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="submit">Submit</string>
+    <string name="create_account">Create Account</string>
+    <string name="email">Email</string>
+    <string name="confirm_email">Confirm Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="occupation">Occupation</string>
+    <string name="fill_all_fields" >Please fill in empty fields!</string>
+    <string name="not_matching">Some fields are not matching!</string>
+    <string name="forgot_password_instructions">If you have forgotten your password, enter your first name, last name, and email. If this information is valid an email will be sent with a link to reset your password.</string>
+</resources>
