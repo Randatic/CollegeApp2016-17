@@ -8,6 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
 import io.github.randatic.collegeapp.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -22,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         wireWidgets();
+        Backendless.initApp("A9859B20-C416-976B-FF6B-05FD0247B700", "3813DDD7-9C53-3E90-FFDE-98850AB61600", "v1");
     }
 
     @Override
@@ -54,8 +59,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        //TODO edit login() when we implement the database
         if(!(editTextEmail.getText().toString().trim().equals("") || editTextPassword.getText().toString().trim().equals(""))) {
+
+            Backendless.UserService.login(editTextEmail.getText().toString(), editTextPassword.getText().toString(), false);
+
+            AsyncCallback<Boolean> isValidLoginCallback = new AsyncCallback<Boolean>()
+            {
+                @Override
+                public void handleResponse( Boolean response )
+                {
+                    Toast.makeText(LoginActivity.this, "[ASYNC] Is login valid? - " + response , Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void handleFault( BackendlessFault fault )
+                {
+                    Toast.makeText(LoginActivity.this, "Fault" + fault, Toast.LENGTH_SHORT).show();
+                }
+
+            };
+
+            Backendless.UserService.isValidLogin( isValidLoginCallback );
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
