@@ -23,9 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Presenter.LoginActivity" />
-        <activity android:name=".Presenter.CreateAccountActivity" />
-        <activity android:name=".Presenter.ForgotAccountActivity" />
+        <activity android:name=".Presenter.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Presenter.CreateAccountActivity"
+            android:parentActivityName=".Presenter.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Presenter.ForgotAccountActivity"
+            android:parentActivityName=".Presenter.LoginActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

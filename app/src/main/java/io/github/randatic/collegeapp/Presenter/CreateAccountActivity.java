@@ -1,5 +1,6 @@
 package io.github.randatic.collegeapp.Presenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,9 @@ public class CreateAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        //provide for "up" navigation
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         editTextEmail = (EditText) findViewById(R.id.create_account_editText_email);
         editTextPassword = (EditText) findViewById(R.id.create_account_editText_password);
         editTextPasswordConfirm = (EditText) findViewById(R.id.create_account_editText_password_confirm);
@@ -37,15 +41,17 @@ public class CreateAccountActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 //TODO Validate Data
+                if(validate()) {
+                    //Create Backendless User
+                    BackendlessUser user = new BackendlessUser();
+                    user.setEmail(editTextEmail.getText().toString().trim());
+                    user.setPassword(editTextPassword.getText().toString().trim());
+                    user.setProperty("first_name", editTextFirstName.getText().toString());
+                    user.setProperty("last_name", editTextLastName.getText().toString());
 
-                //Create Backendless User
-                BackendlessUser user = new BackendlessUser();
-                user.setEmail(editTextEmail.getText().toString());
-                user.setPassword(editTextPassword.getText().toString());
-                user.setProperty("first_name", editTextFirstName.getText().toString());
-                user.setProperty("last_name", editTextLastName.getText().toString());
+                    Backendless.UserService.register(user, createUserRegCallBack());
+                }
 
-                Backendless.UserService.register(user, createUserRegCallBack());
             }
         });
 
@@ -59,7 +65,11 @@ public class CreateAccountActivity extends AppCompatActivity{
         return new AsyncCallback<BackendlessUser>() {
             @Override
             public void handleResponse(BackendlessUser response) {
-                Toast.makeText(CreateAccountActivity.this, "Registration Success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAccountActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent();
+                i.putExtra(LoginActivity.USER_RECENTLY_REGISTERED, editTextEmail.getText().toString().trim());
+                setResult(RESULT_OK, i);
+                finish();
             }
 
             @Override
@@ -69,8 +79,8 @@ public class CreateAccountActivity extends AppCompatActivity{
         };
     }
 
-    private void validate() {
-        //TODO edit submit() when we implement the database
+    private boolean validate() {
+        //TODO edit validate()
         if(
                 (editTextEmail.getText().toString().trim().equals("")||
                         editTextFirstName.getText().toString().trim().equals("")||
@@ -80,12 +90,12 @@ public class CreateAccountActivity extends AppCompatActivity{
 
                 ) {
             Toast.makeText(CreateAccountActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+            return false;
         } else if(!editTextPassword.getText().toString().trim().equals(editTextPasswordConfirm.getText().toString().trim())
                 ) {
             Toast.makeText(CreateAccountActivity.this, R.string.not_matching, Toast.LENGTH_SHORT).show();
-        } else {
-            finish();
+            return false;
         }
-
+        return true;
     }
 }

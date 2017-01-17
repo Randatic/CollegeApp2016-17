@@ -24,6 +24,9 @@ public class ForgotAccountActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_account);
 
+        //provide for "up" navigation
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         editTextNameFirst = (EditText) findViewById(R.id.forgot_account_editText_first_name);
         editTextNameLast = (EditText) findViewById(R.id.forgot_account_editText_last_name);
         editTextEmail = (EditText) findViewById(R.id.forgot_account_editText_email);

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
@@ -16,6 +17,8 @@ import io.github.randatic.collegeapp.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
+    static final int USER_RECENTLY_REGISTERED_REQUEST = 1;
+    static final String USER_RECENTLY_REGISTERED = "User was recently registered.";
     private EditText editTextEmail, editTextPassword;
 
     private Button buttonLogIn, buttonForgotPassword, buttonCreateAccount;
@@ -26,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         wireWidgets();
-        Backendless.initApp("A9859B20-C416-976B-FF6B-05FD0247B700", "3813DDD7-9C53-3E90-FFDE-98850AB61600", "v1");
+        Backendless.initApp(this, "A9859B20-C416-976B-FF6B-05FD0247B700", "3813DDD7-9C53-3E90-FFDE-98850AB61600", "v1");
     }
 
     @Override
@@ -36,13 +39,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (id) {
             case R.id.login_button_login: login(); break;
             case R.id.login_button_forgot_password:
-                i = new Intent(this,  ForgotAccountActivity.class); break;
+                i = new Intent(this,  ForgotAccountActivity.class); startActivity(i); break;
             case R.id.login_button_create_account:
-                i = new Intent(this, CreateAccountActivity.class); break;
+                i = new Intent(this, CreateAccountActivity.class);
+                i.putExtra(USER_RECENTLY_REGISTERED, false);
+                startActivityForResult(i, USER_RECENTLY_REGISTERED_REQUEST);
         }
+    }
 
-        if(i != null)
-            startActivity(i);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == USER_RECENTLY_REGISTERED_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                editTextEmail.setText(data.getStringExtra(USER_RECENTLY_REGISTERED));
+            }
+        }
     }
 
     private void wireWidgets() {
@@ -61,28 +72,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void login() {
         if(!(editTextEmail.getText().toString().trim().equals("") || editTextPassword.getText().toString().trim().equals(""))) {
 
-            Backendless.UserService.login(editTextEmail.getText().toString(), editTextPassword.getText().toString(), false);
-
-            AsyncCallback<Boolean> isValidLoginCallback = new AsyncCallback<Boolean>()
-            {
+            Backendless.UserService.login(editTextEmail.getText().toString().trim(), editTextPassword.getText().toString().trim(), new AsyncCallback<BackendlessUser>() {
                 @Override
-                public void handleResponse( Boolean response )
-                {
-                    Toast.makeText(LoginActivity.this, "[ASYNC] Is login valid? - " + response , Toast.LENGTH_SHORT).show();
+                public void handleResponse(BackendlessUser response) {
+                    Toast.makeText(LoginActivity.this, "Login Successful" + response.toString(), Toast.LENGTH_SHORT).show();
+                    System.out.println(response.toString());
                 }
 
                 @Override
-                public void handleFault( BackendlessFault fault )
-                {
-                    Toast.makeText(LoginActivity.this, "Fault" + fault, Toast.LENGTH_SHORT).show();
+                public void handleFault(BackendlessFault fault) {
+                    Toast.makeText(LoginActivity.this, ""+fault.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            });
 
-            };
-
-            Backendless.UserService.isValidLogin( isValidLoginCallback );
+            //Validation
+//            AsyncCallback<Boolean> isValidLoginCallback = new AsyncCallback<Boolean>()
+//            {
+//                @Override
+//                public void handleResponse( Boolean response )
+//                {
+//                    Toast.makeText(LoginActivity.this, "[ASYNC] Is login valid? - " + response , Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void handleFault( BackendlessFault fault )
+//                {
+//                    Toast.makeText(LoginActivity.this, "Fault" + fault, Toast.LENGTH_SHORT).show();
+//                }
+//
+//            };
+//
+//            Backendless.UserService.isValidLogin( isValidLoginCallback );
+            /*
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
+             */
         } else {
             Toast.makeText(LoginActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
         }
