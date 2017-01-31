@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        
         wireWidgets();
         Backendless.initApp(this, "A9859B20-C416-976B-FF6B-05FD0247B700", "3813DDD7-9C53-3E90-FFDE-98850AB61600", "v1");
     }
@@ -75,8 +75,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Backendless.UserService.login(editTextEmail.getText().toString().trim(), editTextPassword.getText().toString().trim(), new AsyncCallback<BackendlessUser>() {
                 @Override
                 public void handleResponse(BackendlessUser response) {
-                    Toast.makeText(LoginActivity.this, "Login Successful" + response.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     System.out.println(response.toString());
+                    startMainActivity();
                 }
 
                 @Override
@@ -85,31 +86,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
 
-            //Validation
-//            AsyncCallback<Boolean> isValidLoginCallback = new AsyncCallback<Boolean>()
-//            {
-//                @Override
-//                public void handleResponse( Boolean response )
-//                {
-//                    Toast.makeText(LoginActivity.this, "[ASYNC] Is login valid? - " + response , Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void handleFault( BackendlessFault fault )
-//                {
-//                    Toast.makeText(LoginActivity.this, "Fault" + fault, Toast.LENGTH_SHORT).show();
-//                }
-//
-//            };
-//
-//            Backendless.UserService.isValidLogin( isValidLoginCallback );
-            /*
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-            finish();
-             */
         } else {
             Toast.makeText(LoginActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
         }
+
+
+
+    }
+    private void startMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }

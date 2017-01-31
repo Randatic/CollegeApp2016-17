@@ -3,7 +3,7 @@ package io.github.randatic.collegeapp.Model;
 /**
  * Created by Randy Bruner on 12/13/16.
  */
-public abstract class FamilyMember {
+public abstract class FamilyMember implements Comparable<FamilyMember> {
 
     protected String firstName;
     protected String lastName;
@@ -28,5 +28,10 @@ public abstract class FamilyMember {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public int compareTo(FamilyMember other) {
+        return firstName.compareTo(other.getFirstName());
     }
 }
