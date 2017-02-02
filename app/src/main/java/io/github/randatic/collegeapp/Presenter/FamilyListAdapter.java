@@ -17,9 +17,9 @@ import io.github.randatic.collegeapp.R;
 /**
  * Created by Randy Bruner on 1/31/17.
  */
-public class FamilyMemberAdapter extends ArrayAdapter<FamilyMember>{
+public class FamilyListAdapter extends ArrayAdapter<FamilyMember>{
 
-    public FamilyMemberAdapter (Context context, List<FamilyMember> family) {
+    public FamilyListAdapter(Context context, List<FamilyMember> family) {
         super(context, 0, family);
     }
 
@@ -37,10 +37,10 @@ public class FamilyMemberAdapter extends ArrayAdapter<FamilyMember>{
 
         nameTextView.setText(member.getFirstName() + " " + member.getLastName());
         if(member instanceof Guardian) {
-            traitTextView.setText(R.string.occupation + ": " + ((Guardian) member).getOccupation());
+            traitTextView.setText("Occupation: " + ((Guardian) member).getOccupation());
             memberTextView.setText(R.string.guardian);
         } else {
-            traitTextView.setText(R.string.age + ": " + ((Sibling) member).getAge());
+            traitTextView.setText("Age: " + ((Sibling) member).getAge());
             memberTextView.setText(R.string.sibling);
         }
         return convertView;

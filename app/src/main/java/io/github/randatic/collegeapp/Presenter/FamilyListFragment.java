@@ -13,37 +13,35 @@ import java.util.Collections;
 import io.github.randatic.collegeapp.Model.FamilyMember;
 import io.github.randatic.collegeapp.Model.Guardian;
 import io.github.randatic.collegeapp.Model.Sibling;
-import io.github.randatic.collegeapp.R;
 
 /**
  * Created by Randy Bruner on 12/13/16.
  */
 
-public class FamilyFragment extends ListFragment {
+public class FamilyListFragment extends ListFragment {
 
     private ArrayList<FamilyMember> family;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_family, container, false);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
         family = new ArrayList<>();
         populateList();
         Collections.sort(family);
 
-        FamilyMemberAdapter adapter = new FamilyMemberAdapter(getActivity(), family);
+        FamilyListAdapter adapter = new FamilyListAdapter(getActivity(), family);
         setListAdapter(adapter);
 
         return rootView;
     }
 
     private void populateList() {
-        family.add(new Guardian("Berry", "Benson", "Bee"));
-        family.add(new Guardian("John", "Cena", "John Cena"));
-        family.add(new Sibling("Donkey", "Kong", 35));
+        family.add(new Guardian("Berry", "Benson", "Nature Activist"));
+        family.add(new Guardian("Issac", "Newton", "Scientist"));
+        family.add(new Sibling("Fox", "Mulder", 35));
         family.add(new Sibling("Bruce", "Wayne", 40));
-        family.add(new Sibling("Dead", "Pool", 0));
+        family.add(new Sibling("Santa", "Clause", 100));
     }
 }

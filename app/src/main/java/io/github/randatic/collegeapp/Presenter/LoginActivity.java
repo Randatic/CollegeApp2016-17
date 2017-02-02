@@ -1,5 +1,6 @@
 package io.github.randatic.collegeapp.Presenter;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +20,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     static final int USER_RECENTLY_REGISTERED_REQUEST = 1;
     static final String USER_RECENTLY_REGISTERED = "User was recently registered.";
-    private EditText editTextEmail, editTextPassword;
 
+    private EditText editTextEmail, editTextPassword;
     private Button buttonLogIn, buttonForgotPassword, buttonCreateAccount;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +70,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonLogIn.setOnClickListener(this);
         buttonForgotPassword.setOnClickListener(this);
         buttonCreateAccount.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging in, please wait. . .");
     }
 
     private void login() {
+        progressDialog.show();
         if(!(editTextEmail.getText().toString().trim().equals("") || editTextPassword.getText().toString().trim().equals(""))) {
 
             Backendless.UserService.login(editTextEmail.getText().toString().trim(), editTextPassword.getText().toString().trim(), new AsyncCallback<BackendlessUser>() {
@@ -77,16 +84,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void handleResponse(BackendlessUser response) {
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     System.out.println(response.toString());
+                    progressDialog.dismiss();
                     startMainActivity();
                 }
 
                 @Override
                 public void handleFault(BackendlessFault fault) {
+                    progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, ""+fault.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else {
+            progressDialog.dismiss();
             Toast.makeText(LoginActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
         }
 
