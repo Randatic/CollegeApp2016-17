@@ -1,11 +1,13 @@
 package io.github.randatic.collegeapp.Presenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +21,11 @@ import io.github.randatic.collegeapp.Model.Sibling;
  */
 
 public class FamilyListFragment extends ListFragment {
+    static final int REQUEST_CODE_FAMILYMEMBER = 2;
+    static final String EXTRA_OCCUPATION  = "guardian_occupation";
+    static final String EXTRA_NAME_FIRST = "familyMember_nameFirst";
+    static final String EXTRA_NAME_LAST = "familyMember_nameLast";
+    static final String EXTRA_AGE = "sibling_age";
 
     private ArrayList<FamilyMember> family;
 
@@ -37,11 +44,44 @@ public class FamilyListFragment extends ListFragment {
         return rootView;
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        FamilyMember familyMember = (FamilyMember) l.getItemAtPosition(position);
+
+        String nameFirst = familyMember.getFirstName();
+        String nameLast = familyMember.getLastName();
+        String occupation = null;
+        Integer age = null;
+        if(familyMember instanceof Guardian) {
+            occupation = ((Guardian) familyMember).getOccupation();
+        } else {
+            age = ((Sibling) familyMember).getAge();
+        }
+        Intent i = new Intent(getActivity(), FamilyMemberActivity.class);
+        i.putExtra(EXTRA_NAME_FIRST, nameFirst);
+        i.putExtra(EXTRA_NAME_LAST, nameLast);
+        i.putExtra(EXTRA_AGE, age);
+        i.putExtra(EXTRA_OCCUPATION, occupation);
+
+        startActivityForResult(i, REQUEST_CODE_FAMILYMEMBER);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_CODE_FAMILYMEMBER) {
+            if(resultCode == getActivity().RESULT_OK) {
+
+            }
+        }
+    }
+
     private void populateList() {
-        family.add(new Guardian("Berry", "Benson", "Nature Activist"));
-        family.add(new Guardian("Issac", "Newton", "Scientist"));
-        family.add(new Sibling("Fox", "Mulder", 35));
-        family.add(new Sibling("Bruce", "Wayne", 40));
-        family.add(new Sibling("Santa", "Clause", 100));
+        family.add(new Guardian("Berry", "Benson", "Environmentalist"));
+        family.add(new Guardian("Adrienne", "Jefferson", "Scientist"));
+        family.add(new Sibling("Aaron", "Andramedon", 19));
+        family.add(new Sibling("Margery", "Withers", 16));
+        family.add(new Sibling("Junior", "Smithers", 12));
     }
 }

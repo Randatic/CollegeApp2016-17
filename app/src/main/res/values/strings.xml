@@ -23,5 +23,9 @@
     <string name="age">Age</string>
     <string name="guardian">Guardian</string>
     <string name="sibling">Sibling</string>
+    <string name="password_reset">Password Reset</string>
+    <string name="edit_family_member">Edit Family Member</string>
+    <string name="save">Save</string>
+
     <string name="forgot_password_instructions">If you have forgotten your password, enter your first name, last name, and email. If this information is valid an email will be sent with a link to reset your password.</string>
 </resources>
