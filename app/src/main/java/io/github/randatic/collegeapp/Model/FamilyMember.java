@@ -8,6 +8,11 @@ public abstract class FamilyMember implements Comparable<FamilyMember> {
     protected String firstName;
     protected String lastName;
 
+    public FamilyMember() {
+        firstName = "Avery";
+        lastName = "Jackson";
+    }
+
     public FamilyMember (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;

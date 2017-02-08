@@ -7,6 +7,11 @@ public class Sibling extends FamilyMember {
 
     private int age;
 
+    public Sibling () {
+        super("Berry Jr", "Benson");
+        age = 10;
+    }
+
     public Sibling (String firstName, String lastName, int age) {
         super(firstName, lastName);
         this.age = age;

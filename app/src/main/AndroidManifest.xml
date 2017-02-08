@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.randatic.collegeapp" >
+    package="io.github.randatic.collegeapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,33 +10,39 @@
         android:icon="@mipmap/ic_menu_graduate"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Presenter.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Presenter.SplashActivity">
+
         </activity>
-        <activity android:name=".Presenter.SplashActivity" >
+        <activity
+            android:name=".Presenter.LoginActivity"
+            android:label="@string/log_In"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Presenter.CreateAccountActivity"
+            android:label="@string/create_account"
+            android:parentActivityName=".Presenter.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Presenter.ForgotAccountActivity"
+            android:label="@string/password_reset"
+            android:parentActivityName=".Presenter.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Presenter.FamilyMemberActivity"
+            android:label="@string/edit_family_member"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Presenter.DataTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Presenter.LoginActivity"
-            android:label="@string/log_In"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Presenter.CreateAccountActivity"
-            android:label="@string/create_account"
-            android:parentActivityName=".Presenter.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".Presenter.ForgotAccountActivity"
-            android:label="@string/password_reset"
-            android:parentActivityName=".Presenter.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Presenter.FamilyMemberActivity"
-            android:label="@string/edit_family_member"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -6,14 +6,14 @@ package io.github.randatic.collegeapp.Model;
 public class Guardian extends FamilyMember {
     private String occupation;
 
+    public Guardian () {
+        super("Berry", "Benson");
+        this.occupation = "NONE";
+    }
+
     public Guardian (String firstName, String lastName, String occupation) {
         super(firstName, lastName);
         this.occupation = occupation;
-    }
-
-    public Guardian (String firstName, String lastName) {
-        super(firstName, lastName);
-        this.occupation = "NONE";
     }
 
     public String getOccupation() {
