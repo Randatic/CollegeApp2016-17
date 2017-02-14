@@ -78,10 +78,6 @@ public class FamilyListFragment extends ListFragment {
     }
 
     private void populateList() {
-        family.add(new Guardian("Berry", "Benson", "Environmentalist"));
-        family.add(new Guardian("Adrienne", "Jefferson", "Scientist"));
-        family.add(new Sibling("Aaron", "Andramedon", 19));
-        family.add(new Sibling("Margery", "Withers", 16));
-        family.add(new Sibling("Junior", "Smithers", 12));
+
     }
 }

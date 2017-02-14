@@ -10,6 +10,8 @@ public class Profile {
     private String firstName, lastName;
     private Date birthdate;
 
+    private String objectId;
+
     public Profile (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +23,8 @@ public class Profile {
         this.lastName = lastName;
         this.birthdate = birthdate;
     }
+
+
 
     //Getters & Setters
     public String getFirstName() {
@@ -46,5 +50,7 @@ public class Profile {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
+
+
 
 }

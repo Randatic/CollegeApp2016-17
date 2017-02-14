@@ -8,7 +8,7 @@ public class Sibling extends FamilyMember {
     private int age;
 
     public Sibling () {
-        super("Berry Jr", "Benson");
+        super("Barbara", "Fisher");
         age = 10;
     }
 
@@ -17,6 +17,10 @@ public class Sibling extends FamilyMember {
         this.age = age;
     }
 
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " " + Integer.toString(age);
+    }
 
     //Getters & Setters
     public int getAge() {

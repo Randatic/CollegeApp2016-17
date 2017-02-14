@@ -8,6 +8,9 @@ public abstract class FamilyMember implements Comparable<FamilyMember> {
     protected String firstName;
     protected String lastName;
 
+    protected int objectId;
+    protected String ownerId;
+
     public FamilyMember() {
         firstName = "Avery";
         lastName = "Jackson";
@@ -33,6 +36,14 @@ public abstract class FamilyMember implements Comparable<FamilyMember> {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getObjectId() {
+        return objectId;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
     }
 
     @Override

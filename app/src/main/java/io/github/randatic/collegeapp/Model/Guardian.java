@@ -7,13 +7,18 @@ public class Guardian extends FamilyMember {
     private String occupation;
 
     public Guardian () {
-        super("Berry", "Benson");
-        this.occupation = "NONE";
+        super("Larry", "Fisher");
+        this.occupation = "Dentist";
     }
 
     public Guardian (String firstName, String lastName, String occupation) {
         super(firstName, lastName);
         this.occupation = occupation;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " " + occupation;
     }
 
     public String getOccupation() {
