@@ -16,7 +16,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Presenter.SplashActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Presenter.LoginActivity"
@@ -37,10 +40,7 @@
             android:label="@string/edit_family_member"
             android:screenOrientation="portrait" />
         <activity android:name=".Presenter.DataTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 

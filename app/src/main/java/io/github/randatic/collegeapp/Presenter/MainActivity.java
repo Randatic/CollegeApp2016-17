@@ -1,12 +1,11 @@
 package io.github.randatic.collegeapp.Presenter;
 
-import android.support.v4.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,13 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import io.github.randatic.collegeapp.R;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private FloatingActionButton fab;
+    static final String FAMILY_LIST_FT = "FAMILY_LIST";
+    static final String PROFILE_FT = "PROFILE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +32,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,14 +81,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        String tag = "";
 
         Fragment fragment = null;
         if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_profile) {
             fragment = new ProfileFragment();
+            tag = PROFILE_FT;
         } else if (id == R.id.nav_family) {
             fragment = new FamilyListFragment();
+            tag = FAMILY_LIST_FT;
+            fab.setImageResource(R.drawable.ic_add_item);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -101,12 +101,23 @@ public class MainActivity extends AppCompatActivity
 
         if( fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
+            ft.replace(R.id.content_frame, fragment, tag);
             ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if(id == R.id.fab) {
+            Fragment currentFragment = (android.support.v4.app.Fragment) getSupportFragmentManager().findFragmentByTag(FAMILY_LIST_FT);
+            if(currentFragment != null && currentFragment.isVisible()) {
+                ProgressDialog pd = new ProgressDialog(this);
+            }
+        }
     }
 }

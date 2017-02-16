@@ -50,4 +50,9 @@ public abstract class FamilyMember implements Comparable<FamilyMember> {
     public int compareTo(FamilyMember other) {
         return firstName.compareTo(other.getFirstName());
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
